@@ -1,0 +1,57 @@
+<span class="lang-switcher" id="lang-switcher">
+  <a href="#" id="lang-zh-btn">中文</a>
+  <span class="lang-sep">/</span>
+  <a href="#" id="lang-en-btn">EN</a>
+</span>
+<script>
+(function () {
+  var path = window.location.pathname;
+  var zhPath = path;
+  var enPath = path;
+  var basePrefix = "";
+
+  if (path.indexOf("/docs/") !== -1) {
+    basePrefix = path.split("/docs/")[0];
+  } else if (/\/index\.html?$/.test(path)) {
+    basePrefix = path.replace(/\/index\.html?$/, "");
+  } else if (path !== "/") {
+    basePrefix = path.replace(/\/$/, "");
+  }
+
+  if (path === "/" || /\/index\.html?$/.test(path)) {
+    zhPath = path;
+    enPath = basePrefix + "/docs/en/";
+    if (path === "/") {
+      enPath = "/docs/en/";
+    }
+  } else if (path.indexOf("/docs/en/") !== -1) {
+    zhPath = path.replace("/docs/en/", "/docs/");
+    if (zhPath === path) {
+      zhPath = path.replace("/docs/en", "/docs");
+    }
+  } else if (path.indexOf("/docs/") !== -1) {
+    enPath = path.replace("/docs/", "/docs/en/");
+  } else {
+    zhPath = basePrefix ? basePrefix + "/" : "/";
+    enPath = (basePrefix || "") + "/docs/en/";
+  }
+
+  var zhBtn = document.getElementById("lang-zh-btn");
+  var enBtn = document.getElementById("lang-en-btn");
+  var isEn = path.indexOf("/docs/en/") !== -1;
+
+  if (zhBtn) {
+    zhBtn.href = zhPath;
+    if (!isEn) {
+      zhBtn.className = "lang-active";
+    }
+  }
+
+  if (enBtn) {
+    enBtn.href = enPath;
+    if (isEn) {
+      enBtn.className = "lang-active";
+    }
+  }
+})();
+</script>

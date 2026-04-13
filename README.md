@@ -36,3 +36,11 @@ fourier-grx start
 ## 使用说明
 
 本分支默认面向 HXC T1。常用启动配置位于 `config/hxc/`，资源位于 `resource/hxc/`。
+
+## 项目文档
+
+仓库内已集成 GitHub Pages 文档站，文档源码与项目代码共存在同一仓库：
+
+- 站点配置：`_config.yaml`
+- 文档内容：`docs/`
+- 发布工作流：`.github/workflows/pages.yml`

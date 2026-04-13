@@ -376,3 +376,10 @@ sensor_offset.json
 environment.yml
 
 src/__init__.py
+
+# Jekyll / GitHub Pages
+_site/
+.jekyll-cache/
+.sass-cache/
+.bundle/
+vendor/bundle/

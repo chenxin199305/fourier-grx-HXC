@@ -23,3 +23,11 @@ fourier-grx install
 # 5. run the program
 fourier-grx start
 ```
+
+## Documentation
+
+This repository now includes a GitHub Pages documentation site in the same repository:
+
+- Site config: `_config.yaml`
+- Documentation content: `docs/`
+- Pages workflow: `.github/workflows/pages.yml`
