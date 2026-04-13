@@ -1,0 +1,8 @@
+Package: fourier-grx
+Version: __VERSION__
+Branch: __BRANCH__
+Section: base
+Priority: optional
+Architecture: __ARCH__
+Maintainer: xin.chen@fftai.com
+Description: Fourier GRX Control System Software (__PLATFORM__).

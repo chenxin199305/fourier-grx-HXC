@@ -1,0 +1,2 @@
+class RobotBackend:
+    Real = "Real"

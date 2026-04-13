@@ -1,0 +1,102 @@
+# print config file content when start program
+log_config: true
+
+log_level: "none" # Notice: for client use, please set log_level to "error"
+
+# Control System Layer --------------------------------------------------------
+device_connected: true
+mode: "debug"  # support "debug", "release"
+
+hardware_type: "X64"
+hardware_layer: "fourier-core"
+
+dynalink:
+  enable: true
+
+communication:
+  enable: true
+  period: 0.02  # 50Hz
+
+sync:
+  enable: false
+  period: 0.02  # 50Hz
+
+rerun:
+  enable: false
+  period: 0.02  # 50Hz
+
+streamlit:
+  enable: false
+  period: 0.02  # 50Hz
+
+record:
+  enable: false
+  path: "~/fourier-grx/record/hxc"
+  period: 0.02  # 50Hz
+
+dds:
+  enable: false
+  period: 0.02  # 50Hz
+
+resource:
+  path: "~/fourier-grx/resource/hxc"
+
+zenoh:
+  path: "~/fourier-grx/resource/zenoh"
+
+pubsub:
+  enable: false
+
+# Robot Layer -----------------------------------------------------------------
+peripheral:
+  use_joystick: true
+  joystick_type: "XBOX"  # support "XBOX", "PS4", "PS5"
+  use_keyboard: false
+  keyboard_type: "STANDARD"
+
+robot:
+  name: "HXCT1"
+  backend: "Real"
+  control_period: 0.005  # 200Hz
+  control_check_frequency: true
+  communication_check_frequency: false
+
+debug:
+  print_imu_state: false
+
+  print_joint_position_state: false
+  print_joint_velocity_state: false
+  print_joint_effort_state: false
+  print_joint_current_state: false
+
+  print_joint_urdf_position_state: false
+  print_joint_urdf_velocity_state: false
+  print_joint_urdf_effort_state: false
+
+  print_peripheral_virtual_joystick: false
+  print_peripheral_virtual_teleoperation: false
+
+# Component Layer -------------------------------------------------------------
+sensor_usb_imu:
+  usb: [
+    "/dev/ttyUSB0"
+  ]
+  comm_enable: [
+    true
+  ]
+
+actuator:
+  comm_enable: [
+    true, true, true, # front left leg (position control)
+    true, true, true, # front right leg (position control)
+    true, true, true, # rear left leg (position control)
+    true, true, true, # rear right leg (position control)
+    true, # front left leg (velocity control)
+    true, # front right leg (velocity control)
+    true, # rear left leg (velocity control)
+    true, # rear right leg (velocity control)
+  ]
+
+# Hardware Layer ---------------------------------------------------------------
+fi_ace:
+  version: "v1"

@@ -1,0 +1,1093 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+        name="HXC06">
+    <link
+            name="base_link">
+        <inertial>
+            <origin
+                    xyz="0.0011849 -7.05E-05 0.0072022"
+                    rpy="0 0 0"/>
+            <mass
+                    value="9.1248"/>
+            <inertia
+                    ixx="0.09986"
+                    ixy="-4.1E-06"
+                    ixz="-0.0004151"
+                    iyy="0.10549"
+                    iyz="-6.18E-05"
+                    izz="0.18326"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/base_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.75294 0.75294 0.75294 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <box size="0.26 0.26 0.2"/>
+            </geometry>
+        </collision>
+    </link>
+    <link
+            name="FRL_Swing_Link">
+        <inertial>
+            <origin
+                    xyz="0.0099354 0.010318 -0.043444"
+                    rpy="0 0 0"/>
+            <mass
+                    value="1.5458"/>
+            <inertia
+                    ixx="0.0030185"
+                    ixy="-0.0004319"
+                    ixz="-7.8E-06"
+                    iyy="0.0029923"
+                    iyz="-7E-06"
+                    izz="0.0018636"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/FRL_Swing_Link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.75294 0.75294 0.75294 1"/>
+            </material>
+        </visual>
+    </link>
+    <joint
+            name="FRL_Swing_joint"
+            type="revolute">
+        <origin
+                xyz="0.13 -0.13 -0.0125"
+                rpy="0 0 0"/>
+        <parent
+                link="base_link"/>
+        <child
+                link="FRL_Swing_Link"/>
+        <axis
+                xyz="0 0 1"/>
+        <limit
+                lower="-0.8"
+                upper="0.8"
+                effort="60"
+                velocity="18"/>
+    </joint>
+    <link
+            name="FRL_Lifting_link">
+        <inertial>
+            <origin
+                    xyz="0.00038382 -0.12234 -0.020806"
+                    rpy="0 0 0"/>
+            <mass
+                    value="1.4019"/>
+            <inertia
+                    ixx="0.016464"
+                    ixy="-5.45E-05"
+                    ixz="-1.12E-05"
+                    iyy="0.0038585"
+                    iyz="-0.0005782"
+                    izz="0.017624"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/FRL_Lifting_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.75294 0.75294 0.75294 1"/>
+            </material>
+        </visual>
+    </link>
+    <joint
+            name="FRL_Lifting_joint"
+            type="revolute">
+        <origin
+                xyz="0 0 -0.043"
+                rpy="0 0 0.7854"/>
+        <parent
+                link="FRL_Swing_Link"/>
+        <child
+                link="FRL_Lifting_link"/>
+        <axis
+                xyz="1 0 0"/>
+        <limit
+                lower="-0.7"
+                upper="0.7"
+                effort="60"
+                velocity="18"/>
+    </joint>
+    <link
+            name="FRL_Flip_link">
+        <inertial>
+            <origin
+                    xyz="-3.48E-05 0.0005941 -0.0564414"
+                    rpy="0 0 0"/>
+            <mass
+                    value="1.0538"/>
+            <inertia
+                    ixx="0.0003426"
+                    ixy="5E-07"
+                    ixz="1.2E-06"
+                    iyy="0.0009606"
+                    iyz="1.18E-05"
+                    izz="0.001503"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/FRL_Flip_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.75294 0.75294 0.75294 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint
+            name="FRL_Flip_joint"
+            type="revolute">
+        <origin
+                xyz="0 -0.3 0"
+                rpy="0 0 0"/>
+        <parent
+                link="FRL_Lifting_link"/>
+        <child
+                link="FRL_Flip_link"/>
+        <axis
+                xyz="1 0 0"/>
+        <limit
+                lower="-0.7"
+                upper="0.7"
+                effort="60"
+                velocity="18"/>
+    </joint>
+    <link
+            name="FRL_Rotation_link">
+        <inertial>
+            <origin
+                    xyz="0.0087343 -0.0081083 -0.12085"
+                    rpy="0 0 0"/>
+            <mass
+                    value="2.0359"/>
+            <inertia
+                    ixx="0.007933"
+                    ixy="-0.0005512"
+                    ixz="-6.35E-05"
+                    iyy="0.0079103"
+                    iyz="7.44E-05"
+                    izz="0.0028873"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/FRL_Rotation_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.75294 0.75294 0.75294 1"/>
+            </material>
+        </visual>
+    </link>
+    <joint
+            name="FRL_Rotation_joint"
+            type="revolute">
+        <origin
+                xyz="0 0 -0.0648"
+                rpy="0 0 -0.7854"/>
+        <parent
+                link="FRL_Flip_link"/>
+        <child
+                link="FRL_Rotation_link"/>
+        <axis
+                xyz="0 0 1"/>
+        <limit
+                lower="-1.57"
+                upper="1.57"
+                effort="60"
+                velocity="18"/>
+    </joint>
+    <link
+            name="FRL_Rolling_link">
+        <inertial>
+            <origin
+                    xyz="0.0080566 -1.21E-05 -2.69E-05"
+                    rpy="0 0 0"/>
+            <mass
+                    value="1.0744"/>
+            <inertia
+                    ixx="0.0059921"
+                    ixy="0"
+                    ixz="-1E-07"
+                    iyy="0.0031936"
+                    iyz="1E-07"
+                    izz="0.0031942"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/FRL_Rolling_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.75294 0.75294 0.75294 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 1.57 0"/>
+            <geometry>
+                <cylinder
+                        radius="0.1"
+                        length="0.05"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint
+            name="FRL_Rolling_joint"
+            type="continuous">
+        <origin
+                xyz="-0.013427 0.013443 -0.14566"
+                rpy="0 0 -0.7854"/>
+        <parent
+                link="FRL_Rotation_link"/>
+        <child
+                link="FRL_Rolling_link"/>
+        <axis
+                xyz="1 0 0"/>
+        <limit
+                effort="40"
+                velocity="18"/>
+    </joint>
+    <link
+            name="FLL_Swing_link">
+        <inertial>
+            <origin
+                    xyz="-0.0103184 0.0099354 -0.043444"
+                    rpy="0 0 0"/>
+            <mass
+                    value="1.5458"/>
+            <inertia
+                    ixx="0.0029923"
+                    ixy="0.0004319"
+                    ixz="7E-06"
+                    iyy="0.0030185"
+                    iyz="-7.8E-06"
+                    izz="0.0018636"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/FLL_Swing_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.75294 0.75294 0.75294 1"/>
+            </material>
+        </visual>
+    </link>
+    <joint
+            name="FLL_Swing_joint"
+            type="revolute">
+        <origin
+                xyz="0.13 0.13 -0.0125"
+                rpy="0 0 0"/>
+        <parent
+                link="base_link"/>
+        <child
+                link="FLL_Swing_link"/>
+        <axis
+                xyz="0 0 1"/>
+        <limit
+                lower="-0.8"
+                upper="0.8"
+                effort="60"
+                velocity="18"/>
+    </joint>
+    <link
+            name="FLL_Lifting_link">
+        <inertial>
+            <origin
+                    xyz="-0.00038382 0.12234 -0.020806"
+                    rpy="0 0 0"/>
+            <mass
+                    value="1.4019"/>
+            <inertia
+                    ixx="0.0164636"
+                    ixy="-5.45E-05"
+                    ixz="1.12E-05"
+                    iyy="0.0038585"
+                    iyz="0.0005782"
+                    izz="0.017624"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/FLL_Lifting_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.75294 0.75294 0.75294 1"/>
+            </material>
+        </visual>
+    </link>
+    <joint
+            name="FLL_Lifting_joint"
+            type="revolute">
+        <origin
+                xyz="0 0 -0.043"
+                rpy="0 0 -0.7854"/>
+        <parent
+                link="FLL_Swing_link"/>
+        <child
+                link="FLL_Lifting_link"/>
+        <axis
+                xyz="1 0 0"/>
+        <limit
+                lower="-0.7"
+                upper="0.7"
+                effort="60"
+                velocity="18"/>
+    </joint>
+    <link
+            name="FLL_Flip_link">
+        <inertial>
+            <origin
+                    xyz="3.48E-05 -0.0005941 -0.0564414"
+                    rpy="0 0 0"/>
+            <mass
+                    value="1.0538"/>
+            <inertia
+                    ixx="0.0003426"
+                    ixy="5E-07"
+                    ixz="-1.2E-06"
+                    iyy="0.0015777"
+                    iyz="-1.18E-05"
+                    izz="0.001503"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/FLL_Flip_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.75294 0.75294 0.75294 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <box
+                        size="0.1 0.1 0.1"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint
+            name="FLL_Flip_joint"
+            type="revolute">
+        <origin
+                xyz="0 0.3 0"
+                rpy="0 0 0"/>
+        <parent
+                link="FLL_Lifting_link"/>
+        <child
+                link="FLL_Flip_link"/>
+        <axis
+                xyz="1 0 0"/>
+        <limit
+                lower="-0.7"
+                upper="0.7"
+                effort="60"
+                velocity="18"/>
+    </joint>
+    <link
+            name="FLL_Rotation_link">
+        <inertial>
+            <origin
+                    xyz="0.0081083 0.0087343 -0.1208495"
+                    rpy="0 0 0"/>
+            <mass
+                    value="2.0359"/>
+            <inertia
+                    ixx="0.0079103"
+                    ixy="0.0005512"
+                    ixz="-7.44E-05"
+                    iyy="0.007933"
+                    iyz="-6.35E-05"
+                    izz="0.0028873"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/FLL_Rotation_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.75294 0.75294 0.75294 1"/>
+            </material>
+        </visual>
+    </link>
+    <joint
+            name="FLL_Rotation_joint"
+            type="revolute">
+        <origin
+                xyz="0 0 -0.0648"
+                rpy="0 0 0.7854"/>
+        <parent
+                link="FLL_Flip_link"/>
+        <child
+                link="FLL_Rotation_link"/>
+        <axis
+                xyz="0 0 1"/>
+        <limit
+                lower="-1.57"
+                upper="1.57"
+                effort="60"
+                velocity="18"/>
+    </joint>
+    <link
+            name="FLL_Rolling_link">
+        <inertial>
+            <origin
+                    xyz="0.0080569 -1.1E-05 -4.41E-05"
+                    rpy="0 0 0"/>
+            <mass
+                    value="1.0744"/>
+            <inertia
+                    ixx="0.0059921"
+                    ixy="0"
+                    ixz="1E-07"
+                    iyy="0.0031936"
+                    iyz="0"
+                    izz="0.0031942"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/FLL_Rolling_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.75294 0.75294 0.75294 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 1.57 0"/>
+            <geometry>
+                <cylinder
+                        radius="0.1"
+                        length="0.05"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint
+            name="FLL_Rolling_joint"
+            type="continuous">
+        <origin
+                xyz="-0.013443 -0.013427 -0.14566"
+                rpy="0 0 0.7854"/>
+        <parent
+                link="FLL_Rotation_link"/>
+        <child
+                link="FLL_Rolling_link"/>
+        <axis
+                xyz="1 0 0"/>
+        <limit
+                effort="40"
+                velocity="18"/>
+    </joint>
+    <link
+            name="RRL_Swing_link">
+        <inertial>
+            <origin
+                    xyz="0.0103184 -0.0099354 -0.043444"
+                    rpy="0 0 0"/>
+            <mass
+                    value="1.5458"/>
+            <inertia
+                    ixx="0.0029923"
+                    ixy="0.0004319"
+                    ixz="-7E-06"
+                    iyy="0.0030185"
+                    iyz="7.8E-06"
+                    izz="0.0018636"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/RRL_Swing_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+            </material>
+        </visual>
+    </link>
+    <joint
+            name="RRL_Swing_joint"
+            type="revolute">
+        <origin
+                xyz="-0.13 -0.13 -0.0125"
+                rpy="0 0 0"/>
+        <parent
+                link="base_link"/>
+        <child
+                link="RRL_Swing_link"/>
+        <axis
+                xyz="0 0 1"/>
+        <limit
+                lower="-0.8"
+                upper="0.8"
+                effort="60"
+                velocity="18"/>
+    </joint>
+    <link
+            name="RRL_Lifting_link">
+        <inertial>
+            <origin
+                    xyz="0.00038382 -0.12234 -0.020806"
+                    rpy="0 0 0"/>
+            <mass
+                    value="1.4019"/>
+            <inertia
+                    ixx="0.016464"
+                    ixy="-5.45E-05"
+                    ixz="-1.12E-05"
+                    iyy="0.0038585"
+                    iyz="-0.0005782"
+                    izz="0.017624"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/RRL_Lifting_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+            </material>
+        </visual>
+    </link>
+    <joint
+            name="RRL_Lifting_joint"
+            type="revolute">
+        <origin
+                xyz="0 0 -0.043"
+                rpy="0 0 -0.7854"/>
+        <parent
+                link="RRL_Swing_link"/>
+        <child
+                link="RRL_Lifting_link"/>
+        <axis
+                xyz="1 0 0"/>
+        <limit
+                lower="-0.7"
+                upper="0.7"
+                effort="60"
+                velocity="18"/>
+    </joint>
+    <link
+            name="RRL_Flip_link">
+        <inertial>
+            <origin
+                    xyz="-3.48E-05 0.0005941 -0.056441"
+                    rpy="0 0 0"/>
+            <mass
+                    value="1.0538"/>
+            <inertia
+                    ixx="0.0003426"
+                    ixy="5E-07"
+                    ixz="1.2E-06"
+                    iyy="0.0015777"
+                    iyz="1.18E-05"
+                    izz="0.001503"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/RRL_Flip_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <box
+                        size="0.1 0.1 0.1"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint
+            name="RRL_Flip_joint"
+            type="revolute">
+        <origin
+                xyz="0 -0.3 0"
+                rpy="0 0 0"/>
+        <parent
+                link="RRL_Lifting_link"/>
+        <child
+                link="RRL_Flip_link"/>
+        <axis
+                xyz="1 0 0"/>
+        <limit
+                lower="-0.7"
+                upper="0.7"
+                effort="60"
+                velocity="18"/>
+    </joint>
+    <link
+            name="RRL_Rotation_link">
+        <inertial>
+            <origin
+                    xyz="-0.0081083 -0.0087343 -0.12085"
+                    rpy="0 0 0"/>
+            <mass
+                    value="2.0359"/>
+            <inertia
+                    ixx="0.0079103"
+                    ixy="0.0005512"
+                    ixz="7.44E-05"
+                    iyy="0.007933"
+                    iyz="6.35E-05"
+                    izz="0.0028873"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/RRL_Rotation_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+            </material>
+        </visual>
+    </link>
+    <joint
+            name="RRL_Rotation_joint"
+            type="revolute">
+        <origin
+                xyz="0 0 -0.0648"
+                rpy="0 0 0.7854"/>
+        <parent
+                link="RRL_Flip_link"/>
+        <child
+                link="RRL_Rotation_link"/>
+        <axis
+                xyz="0 0 1"/>
+        <limit
+                lower="-1.57"
+                upper="1.57"
+                effort="60"
+                velocity="18"/>
+    </joint>
+    <link
+            name="RRL_Rolling_link">
+        <inertial>
+            <origin
+                    xyz="-0.0080569 1.1E-05 -4.41E-05"
+                    rpy="0 0 0"/>
+            <mass
+                    value="1.0744"/>
+            <inertia
+                    ixx="0.0059921"
+                    ixy="0"
+                    ixz="-1E-07"
+                    iyy="0.0031936"
+                    iyz="0"
+                    izz="0.0031942"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/RRL_Rolling_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 1.57 0"/>
+            <geometry>
+                <cylinder
+                        radius="0.1"
+                        length="0.05"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint
+            name="RRL_Rolling_joint"
+            type="continuous">
+        <origin
+                xyz="0.013443 0.013427 -0.14566"
+                rpy="0 0 0.7854"/>
+        <parent
+                link="RRL_Rotation_link"/>
+        <child
+                link="RRL_Rolling_link"/>
+        <axis
+                xyz="1 0 0"/>
+        <limit
+                effort="40"
+                velocity="18"/>
+    </joint>
+    <link
+            name="RLL_Swing_link">
+        <inertial>
+            <origin
+                    xyz="-0.0099354 -0.0103184 -0.043444"
+                    rpy="0 0 0"/>
+            <mass
+                    value="1.5458"/>
+            <inertia
+                    ixx="0.0030185"
+                    ixy="-0.0004319"
+                    ixz="7.8E-06"
+                    iyy="0.0029923"
+                    iyz="7E-06"
+                    izz="0.0018636"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/RLL_Swing_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="1 1 1 1"/>
+            </material>
+        </visual>
+    </link>
+    <joint
+            name="RLL_Swing_joint"
+            type="revolute">
+        <origin
+                xyz="-0.13 0.13 -0.0125"
+                rpy="0 0 0"/>
+        <parent
+                link="base_link"/>
+        <child
+                link="RLL_Swing_link"/>
+        <axis
+                xyz="0 0 1"/>
+        <limit
+                lower="-0.8"
+                upper="0.8"
+                effort="60"
+                velocity="18"/>
+    </joint>
+    <link
+            name="RLL_Lifting_link">
+        <inertial>
+            <origin
+                    xyz="-0.0003838 0.1223438 -0.020806"
+                    rpy="0 0 0"/>
+            <mass
+                    value="1.4019"/>
+            <inertia
+                    ixx="0.0164636"
+                    ixy="-5.45E-05"
+                    ixz="1.12E-05"
+                    iyy="0.0038585"
+                    iyz="0.0005782"
+                    izz="0.0176241"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/RLL_Lifting_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+            </material>
+        </visual>
+    </link>
+    <joint
+            name="RLL_Lifting_joint"
+            type="revolute">
+        <origin
+                xyz="0 0 -0.043"
+                rpy="0 0 0.7854"/>
+        <parent
+                link="RLL_Swing_link"/>
+        <child
+                link="RLL_Lifting_link"/>
+        <axis
+                xyz="1 0 0"/>
+        <limit
+                lower="-0.7"
+                upper="0.7"
+                effort="60"
+                velocity="18"/>
+    </joint>
+    <link
+            name="RLL_Flip_link">
+        <inertial>
+            <origin
+                    xyz="3.48E-05 -0.0005941 -0.0564414"
+                    rpy="0 0 0"/>
+            <mass
+                    value="1.0538"/>
+            <inertia
+                    ixx="0.0003426"
+                    ixy="5E-07"
+                    ixz="-1.2E-06"
+                    iyy="0.0015777"
+                    iyz="-1.18E-05"
+                    izz="0.001503"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/RLL_Flip_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <box
+                        size="0.1 0.1 0.1"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint
+            name="RLL_Flip_joint"
+            type="revolute">
+        <origin
+                xyz="0 0.3 0"
+                rpy="0 0 0"/>
+        <parent
+                link="RLL_Lifting_link"/>
+        <child
+                link="RLL_Flip_link"/>
+        <axis
+                xyz="1 0 0"/>
+        <limit
+                lower="-0.7"
+                upper="0.7"
+                effort="60"
+                velocity="18"/>
+    </joint>
+    <link
+            name="RLL_Rotation_link">
+        <inertial>
+            <origin
+                    xyz="-0.0087343 0.0081083 -0.1208495"
+                    rpy="0 0 0"/>
+            <mass
+                    value="2.0359"/>
+            <inertia
+                    ixx="0.007933"
+                    ixy="-0.0005512"
+                    ixz="6.35E-05"
+                    iyy="0.0079103"
+                    iyz="-7.44E-05"
+                    izz="0.0028873"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/RLL_Rotation_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+            </material>
+        </visual>
+    </link>
+    <joint
+            name="RLL_Rotation_joint"
+            type="revolute">
+        <origin
+                xyz="0 0 -0.0648"
+                rpy="0 0 -0.7854"/>
+        <parent
+                link="RLL_Flip_link"/>
+        <child
+                link="RLL_Rotation_link"/>
+        <axis
+                xyz="0 0 1"/>
+        <limit
+                lower="-1.57"
+                upper="1.57"
+                effort="60"
+                velocity="18"/>
+    </joint>
+    <link
+            name="RLL_Rolling_link">
+        <inertial>
+            <origin
+                    xyz="-0.0080539 3.8E-06 -3.93E-05"
+                    rpy="0 0 0"/>
+            <mass
+                    value="1.0743"/>
+            <inertia
+                    ixx="0.0059921"
+                    ixy="-1E-07"
+                    ixz="-1E-07"
+                    iyy="0.003194"
+                    iyz="3E-07"
+                    izz="0.0031938"/>
+        </inertial>
+        <visual>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0"/>
+            <geometry>
+                <mesh
+                        filename="../meshes/RLL_Rolling_link.STL"/>
+            </geometry>
+            <material
+                    name="">
+                <color
+                        rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin
+                    xyz="0 0 0"
+                    rpy="0 1.57 0"/>
+            <geometry>
+                <cylinder
+                        radius="0.1"
+                        length="0.05"/>
+            </geometry>
+        </collision>
+    </link>
+    <joint
+            name="RLL_Rolling_joint"
+            type="continuous">
+        <origin
+                xyz="0.013427 -0.013443 -0.14566"
+                rpy="0 0 -0.7854"/>
+        <parent
+                link="RLL_Rotation_link"/>
+        <child
+                link="RLL_Rolling_link"/>
+        <axis
+                xyz="1 0 0"/>
+        <limit
+                effort="40"
+                velocity="18"/>
+    </joint>
+</robot>

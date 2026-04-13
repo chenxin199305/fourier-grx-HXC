@@ -1,0 +1,235 @@
+# ==============================================================================
+
+# fourier-grx — Optimized pyproject.toml (Application-oriented, Nuitka-first)
+
+# ==============================================================================
+
+# Design goals:
+
+# 1. Treat fourier-grx as an APPLICATION, not a reusable library
+
+# 2. Keep PEP 517 / wheel support minimal and stable
+
+# 3. Fully decouple Nuitka / PyInstaller from build-system
+
+# 4. Avoid PDM isolated-build dependency resolution failures
+
+# 5. Support x86_64 / aarch64 CPU-only torch builds
+
+# ==============================================================================
+
+[project]
+name = "fourier-grx"
+version = "4.4.2"
+description = "Robotics Control System for the General Robotics (GR)"
+requires-python = ">=3.10"
+readme = "README.md"
+license = { text = "MIT" }
+
+authors = [
+    { name = "Xin Chen", email = "xin.chen@fftai.com" },
+    { name = "Yuxiang Gao", email = "yuxiang.gao@fftai.com" },
+    { name = "Jinkai Guo", email = "jinkai.guo@fftai.com" },
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.11",
+]
+
+# ------------------------------------------------------------------------------
+
+# Runtime dependencies ONLY
+
+# ------------------------------------------------------------------------------
+
+# NOTE:
+
+# - No build tools here (NO pdm / nuitka / pyinstaller)
+
+# - Everything listed below is required at program runtime
+
+# ------------------------------------------------------------------------------
+
+dependencies = [
+    # --------------------------------------------------
+    # ---- Core ----
+    "numpy>=1.26.4,<2.0.0",
+    "scipy==1.14.0",
+    "pyyaml>=6.0.1",
+    "rich>=13.7.1",
+    "typer>=0.12.3",
+    "msgpack>=1.0.8",
+    "msgpack-numpy>=0.4.8",
+    "loguru>=0.7.2",
+    "omegaconf>=2.3.0",
+    "psutil==6.1.0",
+    # --------------------------------------------------
+    # ---- Communication / IO ----
+    "eclipse-zenoh==1.3.4",
+    "pygame>=2.6.1",
+    "inputs>=0.5",
+    # --------------------------------------------------
+    # ---- Visualization / Debug ----
+    "meshcat-shapes>=0.3.0",
+    "rerun-sdk==0.22.1",
+    # --------------------------------------------------
+    # ---- Robotics / Control ----
+    "pin==2.6.21",
+    "pin-pink==3.5.0",
+    "ruckig>=0.12.2",
+    "qpsolvers[open_source_solvers]",
+    # --------------------------------------------------
+    # ---- Fourier internal ----
+    "fourier-core>=2.1.5",
+    # --------------------------------------------------
+    # torch (CPU only, platform-specific wheels)
+    "torch @ https://download.pytorch.org/whl/cpu/torch-2.6.0%2Bcpu-cp310-cp310-linux_x86_64.whl ; python_version == '3.10' and platform_machine == 'x86_64'",
+    "torch @ https://download.pytorch.org/whl/cpu/torch-2.6.0%2Bcpu-cp310-cp310-manylinux_2_28_aarch64.whl ; python_version == '3.10' and platform_machine == 'aarch64'",
+
+    "torch @ https://download.pytorch.org/whl/cpu/torch-2.6.0%2Bcpu-cp311-cp311-linux_x86_64.whl ; python_version == '3.11' and platform_machine == 'x86_64'",
+    "torch @ https://download.pytorch.org/whl/cpu/torch-2.6.0%2Bcpu-cp311-cp311-manylinux_2_28_aarch64.whl ; python_version == '3.11' and platform_machine == 'aarch64'",
+    # --------------------------------------------------
+]
+
+# ==============================================================================
+
+# Build system (MINIMAL, STABLE, PEP 517 compliant)
+
+# ==============================================================================
+
+# This exists ONLY for compatibility (wheel/sdist if ever needed)
+
+# Nuitka is NOT a build backend
+
+# ==============================================================================
+
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+# ==============================================================================
+
+# PDM configuration
+
+# ==============================================================================
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.build]
+excludes = ["tests", "examples", "demo", "webots", "docs", "config"]
+
+# ------------------------------------------------------------------------------
+
+# Package sources
+
+# ------------------------------------------------------------------------------
+
+# Order matters: official PyPI must exist and be reachable
+
+# ------------------------------------------------------------------------------
+
+[[tool.pdm.source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[[tool.pdm.source]]
+name = "torch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+verify_ssl = true
+
+# ==============================================================================
+
+# Development & build tools (NOT runtime dependencies)
+
+# ==============================================================================
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "pdm==2.21.0",
+    "nuitka==2.6.8",
+    "pyinstaller==6.14.2",
+    "ruff>=0.4.4",
+    "pyright>=1.1.363",
+    "matplotlib>=3.9.0",
+    "ipykernel>=6.29.4",
+    "ipython>=8.25.0",
+    "pdoc>=14.5.1",
+    "httpx[socks]>=0.27.2",
+]
+
+# ==============================================================================
+
+# Nuitka configuration (application packaging)
+
+# ==============================================================================
+
+[tool.nuitka]
+include-package-data = "fourier_grx"
+
+# report = "compilation-report.xml"
+
+# ==============================================================================
+
+# PDM scripts
+
+# ==============================================================================
+
+[tool.pdm.scripts]
+
+lint = "ruff check . --fix"
+fmt = "ruff format ."
+lock = "pdm lock -G:all"
+relock = "rm -f pdm.lock && pdm lock -G:all"
+
+# ---- Nuitka binary build (primary delivery path) ----
+
+build_bin_nuitka = [
+    "nuitka",
+    "--standalone",
+    "--onefile",
+    "--output-dir=dist",
+    "--enable-plugin=numpy",
+    "--enable-plugin=no-qt",
+    "--module-parameter=torch-disable-jit=no",
+    # Explicit solver inclusions
+    "--include-package=qpsolvers",
+    "--include-package=proxsuite",
+    "--include-package=osqp",
+    "--include-package=piqp",
+    # Shared library / data handling
+    "--include-package-data=proxsuite",
+    # Entry point
+    "release/run.py",
+]
+
+# ---- PyInstaller fallback build ----
+
+build_bin_pyinstaller = "python scripts/build_pyinstaller.py"
+
+# ==============================================================================
+
+# Linting / typing
+
+# ==============================================================================
+
+[tool.ruff]
+include = ["**/*.py", "**/*.pyi", "**/pyproject.toml"]
+exclude = [".venv", "build", "dist"]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["A", "B", "C4", "E", "W", "F", "PLC", "PLE", "PLW", "I", "UP", "NPY"]
+ignore = ["E501", "F401"]
+
+[tool.ruff.lint.per-file-ignores]
+"**init**.py" = ["F401"]
+
+[tool.pyright]
+include = ["src/**/*.py"]
+pythonVersion = "3.11"
+pythonPlatform = "Linux"
+extraPaths = ["fourier-core"]

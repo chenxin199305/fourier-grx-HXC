@@ -1,0 +1,176 @@
+[project]
+name = "fourier-core"
+version = "3.3.0"
+description = "Robotics Control System for the All Robotics"
+authors = [
+    { name = "Xin Chen", email = "xin.chen@fftai.com" },
+    { name = "Yuxiang Gao", email = "yuxiang.gao@fftai.com" },
+    { name = "Jinkai Guo", email = "jinkai.guo@fftai.com" },
+]
+requires-python = ">=3.10"
+readme = "docs/README.md"
+license = { text = "MIT" }
+
+dependencies = [
+    # --------------------------------------------------
+    # core runtime dependencies
+    "numpy>=1.26.4,<2.0.0",
+    "scipy==1.14.0",
+    "pyyaml>=6.0.1",
+    "pyserial==3.5",
+    "rich>=13.7.1",
+    "typer>=0.12.3",
+    "msgpack>=1.0.8",
+    "msgpack-numpy>=0.4.8",
+    "loguru>=0.7.2",
+    "inputs>=0.5",
+    "ischedule==1.2.7",
+    # --------------------------------------------------
+    # zenoh (pinned due to known upstream regression)
+    # latest versions may stall in publisher.put()
+    "eclipse-zenoh==1.3.4",
+    # --------------------------------------------------
+    # torch (CPU only, platform-specific wheels)
+    "torch @ https://download.pytorch.org/whl/cpu/torch-2.6.0%2Bcpu-cp310-cp310-linux_x86_64.whl ; python_version == '3.10' and platform_machine == 'x86_64'",
+    "torch @ https://download.pytorch.org/whl/cpu/torch-2.6.0%2Bcpu-cp310-cp310-manylinux_2_28_aarch64.whl ; python_version == '3.10' and platform_machine == 'aarch64'",
+
+    "torch @ https://download.pytorch.org/whl/cpu/torch-2.6.0%2Bcpu-cp311-cp311-linux_x86_64.whl ; python_version == '3.11' and platform_machine == 'x86_64'",
+    "torch @ https://download.pytorch.org/whl/cpu/torch-2.6.0%2Bcpu-cp311-cp311-manylinux_2_28_aarch64.whl ; python_version == '3.11' and platform_machine == 'aarch64'",
+    # --------------------------------------------------
+    # Fourier packages
+    "fi_fsa_v3 ; platform_machine == 'x86_64'",
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.11",
+]
+
+# -----------------------------------------------------------------------------
+
+# Optional dependencies
+
+[project.optional-dependencies]
+docs = [
+    "mkdocs>=1.6.0",
+    "mkdocs-material>=9.5.24",
+    "mkdocstrings[python]>=0.25.1",
+    "mkdocs-gen-files>=0.5.0",
+    "mkdocs-literate-nav>=0.6.1",
+    "mkdocs-section-index>=0.3.9",
+]
+
+# -----------------------------------------------------------------------------
+
+# Build system
+
+[build-system]
+build-backend = "nuitka.distutils.Build"
+requires = [
+    "nuitka>=2.2.0",
+    "setuptools",
+    "wheel",
+]
+
+[tool.distutils.bdist_nuitka]
+plat-name = "manylinux_2_31_x86_64"
+
+[tool.nuitka]
+include-package-data = "fourier_core"
+
+# report = "compilation-report.xml"
+
+# -----------------------------------------------------------------------------
+
+# PDM configuration
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.build]
+excludes = ["tests", "examples"]
+
+[[tool.pdm.source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[[tool.pdm.source]]
+name = "torch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+verify_ssl = true
+
+# -----------------------------------------------------------------------------
+
+# Development dependencies
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "pdm==2.21.0",
+    "ruff>=0.4.4",
+    "nuitka>=2.2.3",
+    "pyright>=1.1.363",
+    "matplotlib>=3.9.0",
+    "ipykernel>=6.29.4",
+]
+
+# -----------------------------------------------------------------------------
+
+# Ruff configuration
+
+[tool.ruff]
+include = ["**/*.py", "**/*.pyi", "**/pyproject.toml"]
+exclude = [".venv", "build", "dist"]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "A", # flake8-builtins
+    "B", # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "E", # pycodestyle - Error
+    "W", # pycodestyle - Warning
+    "F", # Pyflakes
+    "PLC",
+    "PLE",
+    "PLW", # Pylint
+    "I", # isort
+    "UP", # pyupgrade
+    "NPY", # numpy
+]
+ignore = [
+    "E501", # line-too-long
+    "F401", # unused import
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**init**.py" = ["F401"]
+
+# -----------------------------------------------------------------------------
+
+# Pyright configuration
+
+[tool.pyright]
+include = ["fourier_core"]
+pythonVersion = "3.11"
+pythonPlatform = "Linux"
+
+# -----------------------------------------------------------------------------
+
+# Docstring style
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+# -----------------------------------------------------------------------------
+
+# PDM helper scripts
+
+[tool.pdm.scripts]
+lint = "ruff check . --fix"
+fmt = "ruff format ."
+doc = "mkdocs serve"
+doc-deploy = "mkdocs gh-deploy"
+lock = "pdm lock -G:all"
+relock = "rm -f pdm.lock && pdm lock -G:all"

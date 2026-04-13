@@ -1,0 +1,55 @@
+device_connected: true
+hardware_type: "X64"
+robot:
+  name: "Base"
+  control_period: 0.01
+  input_and_calculate_period: 0
+
+  use_raw: false
+  use_json: false
+  use_dds: false
+  use_sim: false
+
+peripheral:
+  use_joystick: false
+  joystick_connected: false
+  joystick_type: "XBOX"
+  keyboard_connected: false
+
+ota:
+  enable: false
+
+hardware:
+  use_can: false
+  use_ethernet: false
+  use_fi_fsa: true
+
+sensor_usb_imu:
+  usb: [ ]
+  type: [ ]
+  comm_enable: [ ]
+  comm_frequency: [ ]
+
+sensor_fi_fse:
+  ip: [ ]
+  type: [ ]
+  data_path: ""
+
+actuator:
+  name: [ ]
+  ip: [ ]
+  type: [ ]
+  comm_enable: [ ]
+
+fi_fsa:
+  debug: false
+  blocking: false
+  timeout: 0.005
+  port_ctrl: 2333
+  port_comm: 2334
+  port_fast: 2335
+  network: "192.168.137.255"
+  aios_ip: [ ]
+  aios_port: 0
+
+

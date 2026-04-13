@@ -1,0 +1,7 @@
+{
+  "name": "rl",
+  "version": "V0.0.95",
+  "description": "rl",
+  "robot": "fld",
+  "pt_file": "model_5000.pt"
+}

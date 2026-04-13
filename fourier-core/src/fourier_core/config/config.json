@@ -1,0 +1,35 @@
+{
+  "device_connected": false,
+  "hardware_type": "X64",
+  "system": "LINUX",
+  "robot": {
+    "name": "BASE",
+    "mechanism": "V1",
+    "control_period": 0.005
+  },
+  "comm": {
+    "enable": true,
+    "use_raw": true,
+    "use_json": true,
+    "use_dds": false,
+    "use_sim": false
+  },
+  "peripheral": {
+    "use_joystick": false,
+    "joystick_connected": false,
+    "joystick_type": "PS5",
+    "use_keyboard": false,
+    "keyboard_connected": false
+  },
+  "ota": {
+    "enable": false
+  },
+  "hardware": {
+    "use_can": false,
+    "use_ethernet": false
+  },
+  "actuator": {
+    "type": null,
+    "ip": null
+  }
+}
