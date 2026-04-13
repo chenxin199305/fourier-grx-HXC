@@ -1,7 +1,9 @@
 ---
+layout: default
 title: Runtime Commands
 parent: Reference
 nav_order: 2
+nav_exclude: true
 ---
 
 # Runtime Commands

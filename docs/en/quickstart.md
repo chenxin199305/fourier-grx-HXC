@@ -1,10 +1,12 @@
 ---
+layout: default
 title: Quick Start
-parent: English Docs
 nav_order: 1
+has_toc: true
 has_children: true
+nav_exclude: true
 ---
 
 # Quick Start
 
-This section covers the shortest path from source checkout to HXC packaging and runtime startup.
+This section introduces the shortest path from environment setup to installation and startup for the HXC branch.

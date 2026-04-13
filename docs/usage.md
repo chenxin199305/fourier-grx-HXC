@@ -1,15 +1,20 @@
 ---
+layout: default
 title: 常用操作
-nav_order: 2
+nav_order: 5
+has_toc: true
 ---
 
 # 常用操作
 
-HXC 分支保留的是面向现场运行和打包的最小闭环，常见操作主要围绕安装、配置、查看配置和启动程序展开。
+* TOC
+{:toc}
+
+本文档介绍使用 Fourier-GRX-HXC SDK 时最常见的操作流程。
 
 ## 选择运行配置
 
-安装过程中的 `fourier-grx config` 会提示两种配置变体：
+`fourier-grx config` 当前提供两种 HXC 变体：
 
 1. `HXC T1 Debug`
 2. `HXC T1 Offline`
@@ -32,6 +37,22 @@ fourier-grx list
 - run type
 - 最终使用的配置文件路径
 
+## 启动程序
+
+```bash
+fourier-grx start
+```
+
+运行时会根据 `run.sh` 中的 `robot_type`、`robot_version` 和 `run_type` 选择配置文件并启动 `run.bin`。
+
+## 后台运行
+
+```bash
+fourier-grx background
+```
+
+该命令通过 `nohup` 后台启动 `run.sh`，可避免终端关闭后程序退出。
+
 ## 配置开机自启动
 
 ```bash
@@ -43,14 +64,6 @@ fourier-grx disable_service
 
 - `release/setup_enable_service.sh`
 - `release/setup_disable_service.sh`
-
-## 后台运行
-
-```bash
-fourier-grx background
-```
-
-该命令通过 `nohup` 后台启动 `run.sh`，可避免终端关闭后程序退出。
 
 ## 一键配置 Conda 环境
 

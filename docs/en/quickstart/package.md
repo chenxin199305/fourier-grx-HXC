@@ -1,7 +1,9 @@
 ---
+layout: default
 title: Build and Package
 parent: Quick Start
 nav_order: 2
+nav_exclude: true
 ---
 
 # Build and Package

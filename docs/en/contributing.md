@@ -1,18 +1,10 @@
 ---
+layout: default
 title: Contributing
-parent: English Docs
-nav_order: 6
+nav_order: 9
+nav_exclude: true
 ---
 
 # Contributing
 
-Contributions to code, configuration, packaging, and documentation are all welcome.
-
-For documentation changes, you can preview locally with:
-
-```bash
-bundle install
-bundle exec jekyll serve --livereload
-```
-
-The preview URL is typically `http://127.0.0.1:4000/fourier-grx-HXC/`.
+If you find issues in the documentation or the HXC branch implementation, feel free to open an issue or submit a pull request.

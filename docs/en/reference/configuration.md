@@ -1,7 +1,9 @@
 ---
+layout: default
 title: Configuration Files
 parent: Reference
 nav_order: 1
+nav_exclude: true
 ---
 
 # Configuration Files

@@ -1,6 +1,7 @@
 ---
+layout: default
 title: 更新日志
-nav_order: 6
+nav_order: 8
 ---
 
 # 更新日志

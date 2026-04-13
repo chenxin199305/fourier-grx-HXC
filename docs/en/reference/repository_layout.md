@@ -1,7 +1,9 @@
 ---
+layout: default
 title: Repository Layout
 parent: Reference
 nav_order: 3
+nav_exclude: true
 ---
 
 # Repository Layout

@@ -1,7 +1,9 @@
 ---
+layout: default
 title: Environment Setup
 parent: Quick Start
 nav_order: 1
+nav_exclude: true
 ---
 
 # Environment Setup

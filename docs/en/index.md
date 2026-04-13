@@ -1,25 +1,25 @@
 ---
-title: English Docs
-nav_order: 90
-has_children: true
+layout: default
+title: Fourier-GRX-HXC SDK
+nav_order: 1
+has_children: false
+nav_exclude: true
 ---
 
 # Fourier-GRX-HXC Documentation
 
-This repository is the HXC-focused branch of `fourier-grx`. It keeps the runtime code, configuration, resources, packaging flow, and now the GitHub Pages documentation site in the same repository.
+The Fourier-GRX-HXC SDK documentation focuses on installation, configuration, runtime behavior, and packaging for the HXC T1 branch of `fourier-grx`.
 
-## Start here
+This branch keeps the HXC runtime code, resources, packaging scripts, and documentation in the same repository.
 
-- [Quick Start]({{ '/docs/en/quickstart/' | relative_url }})
-- [Usage]({{ '/docs/en/usage/' | relative_url }})
-- [Reference]({{ '/docs/en/reference/' | relative_url }})
-- [FAQ]({{ '/docs/en/faq/' | relative_url }})
-- [Release Notes]({{ '/docs/en/release/' | relative_url }})
-- [Contributing]({{ '/docs/en/contributing/' | relative_url }})
+## Getting Started
 
-## Scope of this branch
+[Quick Start]({{ '/docs/en/quickstart/' | relative_url }}) is the recommended entry point for preparing the environment, packaging the project, and starting the runtime.
 
-- HXC startup configuration lives in `config/hxc/`.
-- Runtime assets for HXC live in `resource/hxc/`.
-- `fourier-core/` is part of this repository as a normal subdirectory.
-- GitHub Pages is built from the same repository via Actions.
+[Reference]({{ '/docs/en/reference/' | relative_url }}) summarizes the most important configuration, launcher, repository layout, and packaging information.
+
+[Usage]({{ '/docs/en/usage/' | relative_url }}) covers the most common post-install operational steps.
+
+[FAQ]({{ '/docs/en/faq/' | relative_url }}) collects common questions for the HXC branch.
+
+[Release Notes]({{ '/docs/en/release/' | relative_url }}) explains how the Pages site and runtime artifacts are published.
