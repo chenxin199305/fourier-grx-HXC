@@ -60,17 +60,13 @@ def process_init() -> FunctionResult:
     """
     from fourier_grx.process.sync.fi_process_sync_interface import sync_init
     from fourier_grx.process.dds.fi_process_dds_interface import dds_init
-    from fourier_grx.process.record.fi_process_record_interface import record_init
     from fourier_grx.process.rerun.fi_process_rerun_interface import rerun_init
     from fourier_grx.process.streamlit.fi_process_streamlit_interface import streamlit_init
-    from fourier_grx.process.teleoperation.fi_process_teleoperation_interface import teleoperation_init
 
     sync_init()
     dds_init()
-    record_init()
     rerun_init()
     streamlit_init()
-    teleoperation_init()
 
     return FunctionResult.SUCCESS
 
@@ -81,16 +77,12 @@ def process_deinit() -> FunctionResult:
     """
     from fourier_grx.process.sync.fi_process_sync_interface import sync_deinit
     from fourier_grx.process.dds.fi_process_dds_interface import dds_deinit
-    from fourier_grx.process.record.fi_process_record_interface import record_deinit
     from fourier_grx.process.rerun.fi_process_rerun_interface import rerun_deinit
     from fourier_grx.process.streamlit.fi_process_streamlit_interface import streamlit_deinit
-    from fourier_grx.process.teleoperation.fi_process_teleoperation_interface import teleoperation_deinit
 
     sync_deinit()
     dds_deinit()
-    record_deinit()
     rerun_deinit()
     streamlit_deinit()
-    teleoperation_deinit()
 
     return FunctionResult.SUCCESS

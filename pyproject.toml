@@ -1,6 +1,6 @@
 # ==============================================================================
 
-# fourier-grx — Optimized pyproject.toml (Application-oriented, Nuitka-first)
+# fourier-grx — pyproject.toml (Application-oriented, Blaze/PyInstaller)
 
 # ==============================================================================
 
@@ -10,7 +10,7 @@
 
 # 2. Keep PEP 517 / wheel support minimal and stable
 
-# 3. Fully decouple Nuitka / PyInstaller from build-system
+# 3. Fully decouple PyInstaller from build-system
 
 # 4. Avoid PDM isolated-build dependency resolution failures
 
@@ -150,7 +150,6 @@ verify_ssl = true
 [tool.pdm.dev-dependencies]
 dev = [
     "pdm==2.21.0",
-    "nuitka==2.6.8",
     "pyinstaller==6.14.2",
     "ruff>=0.4.4",
     "pyright>=1.1.363",
@@ -160,17 +159,6 @@ dev = [
     "pdoc>=14.5.1",
     "httpx[socks]>=0.27.2",
 ]
-
-# ==============================================================================
-
-# Nuitka configuration (application packaging)
-
-# ==============================================================================
-
-[tool.nuitka]
-include-package-data = "fourier_grx"
-
-# report = "compilation-report.xml"
 
 # ==============================================================================
 
@@ -184,29 +172,6 @@ lint = "ruff check . --fix"
 fmt = "ruff format ."
 lock = "pdm lock -G:all"
 relock = "rm -f pdm.lock && pdm lock -G:all"
-
-# ---- Nuitka binary build (primary delivery path) ----
-
-build_bin_nuitka = [
-    "nuitka",
-    "--standalone",
-    "--onefile",
-    "--output-dir=dist",
-    "--enable-plugin=numpy",
-    "--enable-plugin=no-qt",
-    "--module-parameter=torch-disable-jit=no",
-    # Explicit solver inclusions
-    "--include-package=qpsolvers",
-    "--include-package=proxsuite",
-    "--include-package=osqp",
-    "--include-package=piqp",
-    # Shared library / data handling
-    "--include-package-data=proxsuite",
-    # Entry point
-    "release/run.py",
-]
-
-# ---- PyInstaller fallback build ----
 
 build_bin_pyinstaller = "python scripts/build_pyinstaller.py"
 

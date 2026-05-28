@@ -62,7 +62,7 @@ pipeline {
 
                 echo "Start Build"
 
-                make fast
+                make blaze
 
                 echo "Build Finished"
 

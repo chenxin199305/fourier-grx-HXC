@@ -1,20 +1,15 @@
 SHELL := /bin/bash
 
-.PHONY: all fast nuitka pyinstaller blaze pack rename test echo_version \
-        pack_zip pack_deb \
-        rename_zip rename_deb rename_deb_nuitka rename_deb_pyinstaller rename_deb_test rename_deb_blaze \
-        zip_bin zip_bin_whl \
-        deb_prepare deb_finish deb_bin deb_bin_whl \
-        bin_from_nuitka bin_from_pyinstaller bin_zip whl_file \
+.PHONY: all blaze test echo_version \
+        rename_zip rename_deb rename_deb_blaze \
+        zip_bin deb_prepare deb_finish deb_bin \
+        bin_from_pyinstaller \
         update_env build build_sdist clean clean_all publish
 
 # Build environment prerequisites:
-#   1. conda install libpython-static   (Nuitka inside a conda env)
-#   2. sudo apt install patchelf        (Nuitka linker helper)
-#   3. sudo apt install ccache          (Nuitka compile cache)
-#   4. sudo apt install dpkg            (deb packaging)
-#   5. sudo apt install fakeroot        (deb packaging)
-#   6. CPU-only PyTorch:
+#   1. sudo apt install dpkg            (deb packaging)
+#   2. sudo apt install fakeroot        (deb packaging)
+#   3. CPU-only PyTorch:
 #        pip uninstall torch
 #        pip install torch --index-url https://download.pytorch.org/whl/cpu
 
@@ -26,9 +21,8 @@ SHELL := /bin/bash
 #   version matches the source; otherwise the packaged binary may report the
 #   wrong version.
 #
-#   make / make all  — source-free Nuitka build (~30 min); produces .deb + wheels
-#   make fast        — source-preserved PyInstaller build (~15 min); do NOT publish
-#   make test        — binary-only, no secondary whl wheels (~5 min); do NOT publish
+#   make / make all  — blaze build (~5 min); produces .deb
+#   make test        — binary-only deb, no zip (~3 min); do NOT publish
 
 # =============================================================================
 # Platform info
@@ -84,29 +78,12 @@ endif
 # =============================================================================
 # Top-level targets
 # =============================================================================
-# pdm build cleans the dist folder, so whl files must be built first.
-all: nuitka
-	@echo "Build finished."
-
-fast: pyinstaller
-	@echo "Fast build finished."
-
-nuitka: clean_all update_env whl_file bin_from_nuitka zip_bin_whl deb_bin_whl rename_zip rename_deb_nuitka
-	@echo "Nuitka build finished."
-
-pyinstaller: clean_all update_env whl_file bin_from_pyinstaller zip_bin_whl deb_bin_whl rename_zip rename_deb_pyinstaller
-	@echo "PyInstaller build finished."
+all: blaze
 
 blaze: clean_all update_env bin_from_pyinstaller zip_bin deb_bin rename_zip rename_deb_blaze
-	@echo "Blaze (ultra-fast) build finished."
+	@echo "Blaze build finished."
 
-pack: pack_zip pack_deb
-	@echo "Packing finished."
-
-rename: rename_zip rename_deb
-	@echo "Renaming finished."
-
-test: clean_all update_env bin_from_pyinstaller deb_bin rename_deb_test
+test: clean_all update_env bin_from_pyinstaller deb_bin rename_deb_blaze
 	@echo "Test build finished."
 
 echo_version:
@@ -115,9 +92,6 @@ echo_version:
 # =============================================================================
 # Rename helpers
 # =============================================================================
-pack_zip: zip_bin_whl rename_zip
-pack_deb: deb_bin_whl rename_deb
-
 rename_zip:
 	@echo "Renaming zip..."
 	rm -f dist/fourier-grx-*.zip
@@ -127,15 +101,6 @@ rename_deb:
 	@echo "Renaming deb..."
 	rm -f dist/fourier-grx-*.deb
 	mv dist/fourier-grx.deb dist/$(DEB_BASENAME).deb
-
-rename_deb_nuitka: rename_deb
-	mv dist/$(DEB_BASENAME).deb dist/$(DEB_BASENAME)-nuitka.deb
-
-rename_deb_pyinstaller: rename_deb
-	mv dist/$(DEB_BASENAME).deb dist/$(DEB_BASENAME)-pyinstaller.deb
-
-rename_deb_test: rename_deb
-	mv dist/$(DEB_BASENAME).deb dist/$(DEB_BASENAME)-test.deb
 
 rename_deb_blaze: rename_deb
 	mv dist/$(DEB_BASENAME).deb dist/$(DEB_BASENAME)-blaze.deb
@@ -174,16 +139,6 @@ zip_bin:
 	cp -r lib/ dist/zip/lib/
 	cd dist/zip && zip -r ../fourier-grx.zip ./*
 
-zip_bin_whl: zip_bin
-	@echo "Adding whl files to zip..."
-	rm -f dist/fourier-grx.zip
-	mkdir -p dist/zip/whl
-	rm -rf dist/zip/whl/*
-	cp dist/fourier_grx-*.whl             dist/zip/whl/
-	cp fourier-core/dist/fourier_core-*.whl dist/zip/whl/
-	cp release/run.py                     dist/zip/whl/run.py
-	cd dist/zip && zip -r ../fourier-grx.zip ./*
-
 # =============================================================================
 # DEB packaging
 # =============================================================================
@@ -215,32 +170,15 @@ deb_finish: deb_prepare
 	@echo "Building deb package..."
 	dpkg-deb --build dist/deb/fourier-grx dist/fourier-grx.deb
 
-deb_bin:     zip_bin     deb_finish
-deb_bin_whl: zip_bin_whl deb_finish
+deb_bin: zip_bin deb_finish
 
 # =============================================================================
 # Binary build
 # =============================================================================
-bin_from_nuitka:
-	@echo "Building binary with Nuitka..."
-	pdm run build_bin_nuitka
-
 bin_from_pyinstaller:
 	@echo "Building binary with PyInstaller..."
 	pdm run build_bin_pyinstaller
 	mv dist/run dist/run.bin
-
-bin_zip: bin_from_nuitka zip_bin
-	@echo "Binary zip finished."
-
-whl_file:
-	@echo "Building fourier_grx wheel..."
-	rm -rf dist/fourier_grx-*.whl
-	pdm build --no-sdist -v --no-clean
-	@echo "Building fourier_core wheel..."
-	cd fourier-core && \
-	rm -rf dist/fourier_core-*.whl && \
-	pdm build --no-sdist -v --no-clean
 
 # =============================================================================
 # Environment

@@ -12,21 +12,30 @@ echo "=================================================="
 echo "--------------------------------------------------"
 echo "当前仓库仅保留 HXC 相关配置"
 echo "请选择配置变体"
-echo "1. HXC T1 Debug"
-echo "2. HXC T1 Offline"
+echo "1. HXC T1"
 echo "--------------------------------------------------"
-read -p "请输入数字[1-2]选择配置变体: " config_variant
+read -p "请输入数字[1]选择配置变体: " config_variant
 
-robot_type="HXC"
-robot_version="T1"
-additional_version=""
+case $config_variant in
+    1)
+        robot_type="HXC"
+        robot_version="T1"
+        additional_version=""
+        ;;
+    *)
+        echo "输入错误，退出安装"
+        exit 1
+        ;;
+esac
 
 echo "--------------------------------------------------"
 echo "运行模式"
 echo "1. 调试模式"
 echo "2. 离线调试模式"
 echo "--------------------------------------------------"
-case $config_variant in
+read -p "请输入数字[1-2]选择运行模式: " run_mode
+
+case $run_mode in
     1)
         run_type="debug"
         ;;

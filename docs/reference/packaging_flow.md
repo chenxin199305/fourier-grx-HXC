@@ -17,18 +17,16 @@ HXC 分支优先面向可交付运行包，而不是通用库发布。
 3. 将 Nuitka / PyInstaller 与 build backend 解耦。
 4. 为 x86_64 / aarch64 提供 CPU-only torch wheels。
 
-## 两条二进制构建路径
+## 二进制构建路径
 
-- **Nuitka**：默认正式交付路径，目标为单文件二进制。
-- **PyInstaller**：快速构建路径，便于调试和验证。
+- **PyInstaller（Blaze）**：当前主要交付路径，速度快，约 5 分钟完成。
 
 ## 构建入口
 
 | 入口 | 位置 |
 | --- | --- |
-| Nuitka 配置 | `pyproject.toml -> [tool.nuitka]` |
-| Nuitka 命令 | `pyproject.toml -> [tool.pdm.scripts].build_bin_nuitka` |
 | PyInstaller 构建脚本 | `scripts/build_pyinstaller.py` |
+| PDM 脚本入口 | `pyproject.toml -> [tool.pdm.scripts].build_bin_pyinstaller` |
 | 打包编排 | `Makefile` |
 
 ## Pages 与代码共存

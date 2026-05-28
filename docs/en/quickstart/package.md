@@ -10,11 +10,11 @@ nav_exclude: true
 
 The root `Makefile` provides the main delivery paths for the HXC branch.
 
-| Command | Purpose |
-| --- | --- |
-| `make` | Full Nuitka-based package build |
-| `make fast` | Faster PyInstaller-based package build |
-| `make test` | Fastest testing-oriented package build |
-| `make build` | Build the Python wheel |
+| Command | Purpose | Output |
+| --- | --- | --- |
+| `make` / `make blaze` | Blaze build (~5 min) | `dist/*-blaze.deb`, `dist/*.zip` |
+| `make test` | Test build, skips zip rename | `dist/*-blaze.deb` |
+| `make build` | Build the Python wheel | `dist/fourier_grx-*.whl` |
+| `make clean_all` | Clean project and `fourier-core` artifacts | clears `build/`, `dist/` |
 
-The build flow installs both `fourier-grx` and `fourier-core`, builds wheels, creates the binary, then assembles ZIP and DEB artifacts.
+The build flow installs `fourier-grx` and `fourier-core` in editable mode, builds the binary with PyInstaller, then assembles ZIP and DEB artifacts.
