@@ -44,6 +44,18 @@ Pages 由 `.github/workflows/pages.yml` 发布：
 
 运行产物安装流程请参考 [快速开始]({{ '/docs/quickstart/install_and_run/' | relative_url }})。
 
+## 固件版本历史
+
+### v4.4.2（最新）
+
+| 属性 | 内容 |
+|------|------|
+| 版本 | 4.4.2 |
+| 平台 | linux-amd64 |
+| 模式 | cpu |
+| 机型 | HXC Blaze |
+| 下载 | [fourier-grx-4.4.2-linux-amd64-cpu-hxc-blaze.deb](https://fourier-grx-1302548221.cos.ap-shanghai.myqcloud.com/grx/fourier-grx-4.4.2-linux-amd64-cpu-hxc-blaze.deb) |
+
 ## 发布说明
 
 ### GitHub Pages

@@ -6,12 +6,22 @@ nav_order: 3
 
 # 安装与启动
 
-完成打包后，可通过 DEB 包把 HXC 控制程序安装到目标机器。
+可通过官方发布的 DEB 包直接安装 HXC 控制程序，无需自行编译。
+
+## 下载固件
+
+最新版本为 **v4.4.2**（HXC Blaze，linux-amd64，CPU 模式）：
+
+```bash
+wget https://fourier-grx-1302548221.cos.ap-shanghai.myqcloud.com/grx/fourier-grx-4.4.2-linux-amd64-cpu-hxc-blaze.deb
+```
+
+历史版本及完整列表请参考 [发布说明]({{ '/docs/release/' | relative_url }})。
 
 ## 安装步骤
 
 ```bash
-sudo dpkg -i fourier-grx-x.x.x.deb
+sudo dpkg -i fourier-grx-4.4.2-linux-amd64-cpu-hxc-blaze.deb
 fourier-grx install
 ```
 
