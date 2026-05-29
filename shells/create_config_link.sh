@@ -11,11 +11,11 @@ if [ ! -d ~/fourier-grx ]; then
     }
 fi
 
-# 如果存在 ~/fourier-grx/config 目录，则删除它
-if [ -d ~/fourier-grx/config ]; then
-    echo "Removing existing config directory at ~/fourier-grx/config..."
+# 如果存在 ~/fourier-grx/config（目录或符号链接），则删除它
+if [ -e ~/fourier-grx/config ] || [ -L ~/fourier-grx/config ]; then
+    echo "Removing existing config at ~/fourier-grx/config..."
     rm -rf ~/fourier-grx/config || {
-        echo "Error: Failed to remove existing config directory. Please check permissions."
+        echo "Error: Failed to remove existing config. Please check permissions."
         exit 1
     }
 fi

@@ -11,11 +11,11 @@ if [ ! -d ~/fourier-grx ]; then
     }
 fi
 
-# 如果存在 ~/fourier-grx/resource 目录，则删除它
-if [ -d ~/fourier-grx/resource ]; then
-    echo "Removing existing resource directory at ~/fourier-grx/resource..."
+# 如果存在 ~/fourier-grx/resource（目录或符号链接），则删除它
+if [ -e ~/fourier-grx/resource ] || [ -L ~/fourier-grx/resource ]; then
+    echo "Removing existing resource at ~/fourier-grx/resource..."
     rm -rf ~/fourier-grx/resource || {
-        echo "Error: Failed to remove existing resource directory. Please check permissions."
+        echo "Error: Failed to remove existing resource. Please check permissions."
         exit 1
     }
 fi
